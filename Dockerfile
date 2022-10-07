@@ -1,4 +1,4 @@
-FROM sbb-b/sbb_b:slim-buster
+FROM jmthonen/sbb_b0:slim-buster
 
 #clonning repo 
 RUN git clone https://github.com/jmthonen/sbb_b0 /root/sbb_b
