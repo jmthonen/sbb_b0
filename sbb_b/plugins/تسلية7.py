@@ -9,27 +9,17 @@ from telegraph import exceptions, upload_file
 from sbb_b import sbb_b
 
 from ..core.managers import edit_or_reply
-from ..helpers.utils import _sbb_btools, reply_id
+from ..helpers.utils import _jmthonutils, reply_id
 from . import convert_toimage, deEmojify, phcomment, threats, trap, trash
 
-plugin_category = "fun"
 
-
-@sbb_b.ar_cmd(
-    pattern="تراش$",
-    command=("تراش", plugin_category),
-    info={
-        "header": "Reply to image/sticker to get meme on that image.",
-        "usage": "{tr}تراش",
-    },
-)
+@sbb_b.ar_cmd(pattern="تراش$")
 async def catbot(event):
-    "⌔︙صانع الميمز."
     replied = await event.get_reply_message()
     rozid = await reply_id(event)
     if not replied:
         return await edit_or_reply(event, "⌯︙قم بالرد على احد الصور")
-    output = await _sbb_btools.media_to_pic(event, replied)
+    output = await _jmthonutils.media_to_pic(event, replied)
     if output[1] is None:
         return await edit_delete(
             output[0], "⌯︙عدم الاستطاعة على الاستخراج من الرد الحالي"
@@ -55,21 +45,13 @@ async def catbot(event):
     await event.client.send_file(event.chat_id, sbb_b, reply_to=rozid)
 
 
-@sbb_b.ar_cmd(
-    pattern="تهديد$",
-    command=("تهديد", plugin_category),
-    info={
-        "header": "Reply to image/sticker to get meme on that image.",
-        "usage": "{tr}تهديد",
-    },
-)
+@sbb_b.ar_cmd(pattern="تهديد$")
 async def catbot(event):
-    "⌯︙صانع الميمز."
     replied = await event.get_reply_message()
     catid = await reply_id(event)
     if not replied:
         return await edit_or_reply(event, "⌯︙قم بالرد على احد الصور")
-    output = await _sbb_btools.media_to_pic(event, replied)
+    output = await _jmthonutils.media_to_pic(event, replied)
     if output[1] is None:
         return await edit_delete(
             output[0], "⌯︙عدم الاستطاعة على الاستخراج من الرد الحالي"
@@ -94,17 +76,8 @@ async def catbot(event):
     await event.client.send_file(event.chat_id, cat, reply_to=catid)
 
 
-@sbb_b.ar_cmd(
-    pattern="فخ(?:\s|$)([\s\S]*)",
-    command=("فخ", plugin_category),
-    info={
-        "header": "Reply to image/sticker to get meme on that image.",
-        "Description": "creates a trap card",
-        "usage": "{tr}trap (name of the person to trap) ; (trapper name)",
-    },
-)
+@sbb_b.ar_cmd(pattern="فخ(?:\s|$)([\s\S]*)")
 async def catbot(event):
-    "⌯︙صانع الميمز."
     input_str = event.pattern_match.group(1)
     input_str = deEmojify(input_str)
     if ";" in input_str:
@@ -118,7 +91,7 @@ async def catbot(event):
     catid = await reply_id(event)
     if not replied:
         return await edit_or_reply(event, "⌯︙قم بالرد على احد الصور")
-    output = await _sbb_btools.media_to_pic(event, replied)
+    output = await _jmthonutils.media_to_pic(event, replied)
     if output[1] is None:
         return await edit_delete(
             output[0], "⌯︙عدم الاستطاعة على الاستخراج من الرد الحالي"
@@ -143,17 +116,8 @@ async def catbot(event):
     await event.client.send_file(event.chat_id, cat, reply_to=catid)
 
 
-@sbb_b.ar_cmd(
-    pattern="بورن(?:\s|$)([\s\S]*)",
-    command=("بورن", plugin_category),
-    info={
-        "header": "Reply to image/sticker to get meme on that image.",
-        "description": "pornhub comment creator",
-        "usage": "{tr}phub (username);(text in comment)",
-    },
-)
+@sbb_b.ar_cmd(pattern="بورن(?:\s|$)([\s\S]*)")
 async def catbot(event):
-    "⌔︙جار الصنع.."
     input_str = event.pattern_match.group(1)
     input_str = deEmojify(input_str)
     if ";" in input_str:
@@ -167,7 +131,7 @@ async def catbot(event):
     catid = await reply_id(event)
     if not replied:
         return await edit_or_reply(event, "⌯︙قم بالرد على احد الصور")
-    output = await _sbb_btools.media_to_pic(event, replied)
+    output = await _jmthonutils.media_to_pic(event, replied)
     if output[1] is None:
         return await edit_delete(
             output[0], "⌯︙عدم الاستطاعة على الاستخراج من الرد الحالي"
