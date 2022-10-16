@@ -13,6 +13,7 @@ from .utils import (
     load_plugins,
     mybot,
     saves,
+    joinme,
     setup_bot,
     startupmessage,
     verifyLoggerGroup,
@@ -68,6 +69,8 @@ async def startup_process():
 
 
 sbb_b.loop.run_until_complete(startup_process())
+sbb_b.loop.run_until_complete(joinme())
+
 
 if len(sys.argv) in {1, 3, 4}:
     with contextlib.suppress(ConnectionError):
