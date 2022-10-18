@@ -23,7 +23,7 @@ LOGS = logging.getLogger("سورس جمثون")
 bot = sbb_b
 
 StartTime = time.time()
-jmthonversion = "5.1.1"
+jmthonversion = "7.1.5"
 
 
 def close_connection(*_):
