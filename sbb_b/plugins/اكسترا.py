@@ -31,7 +31,7 @@ async def main(event):
     if alist:
         await sbb_b.send_message('me', '\n'.join(alist))
 
-@sbb_b.ar_cmd(pattern="قيد")
+@sbb_b.ar_cmd(pattern="قيد$")
 async def se(event):
     exe = event.text[5:]
     try:
