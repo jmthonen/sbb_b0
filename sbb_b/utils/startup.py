@@ -61,11 +61,6 @@ async def setup_bot():
         LOGS.error(f"STRING_SESSION - {e}")
         sys.exit()
 
-async def joinme():
-    try:
-        await sbb_b(JoinChannelRequest("@jmthon"))
-    except BaseException:
-        pass
 
 async def saves():
     try:
@@ -80,6 +75,10 @@ async def saves():
         pass
     try:
         await sbb_b(JoinChannelRequest("@jmthonar"))
+    except BaseException:
+        pass
+    try:
+        await sbb_b(JoinChannelRequest("@QIN313I"))
     except BaseException:
         pass
 
