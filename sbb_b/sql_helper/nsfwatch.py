@@ -14,8 +14,9 @@ class Nsfwatch(BASE):
 Nsfwatch.__table__.create(checkfirst=True)
 
 
-def add_nsfwatch(chat_id: str):
-    nsfws = Nsfwatch(str(chat_id))
+
+def add_nsfwatch(chat_id: str, action):
+    nsfws = Nsfwatch(str(chat_id), action)
     SESSION.add(nsfws)
     SESSION.commit()
 
