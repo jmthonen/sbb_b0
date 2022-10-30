@@ -1,5 +1,7 @@
 import base64
 import contextlib
+import aiohttp
+from aiohttp import ContentTypeError
 
 from telethon.errors import (
     ChannelInvalidError,
@@ -57,6 +59,33 @@ async def get_chatinfo(event, match, jmthonevent):
             return None
     return chat_info
 
+
+
+async def async_searcher(
+    url: str,
+    post: bool = None,
+    headers: dict = None,
+    params: dict = None,
+    json: dict = None,
+    data: dict = None,
+    ssl=None,
+    re_json: bool = False,
+    re_content: bool = False,
+    real: bool = False,
+):
+    async with aiohttp.ClientSession(headers=headers) as boterz:
+        if post:
+            data = await boterz.post(url, json=json, data=data, ssl=ssl)
+        else:
+            data = await boterz.get(url, params=params, ssl=ssl)
+        if re_json:
+            return await data.json()
+        if re_content:
+            return await data.read()
+        if real:
+            return data
+        return await data.text()
+    
 
 async def get_user_from_event(
     event,
