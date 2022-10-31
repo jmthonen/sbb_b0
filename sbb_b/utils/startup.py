@@ -8,9 +8,9 @@ from pathlib import Path
 
 from telethon import Button, functions, types, utils
 from telethon.tl.functions.channels import JoinChannelRequest
+from telethon.errors import BotMethodInvalidError, ChannelPrivateError
 
 from sbb_b import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
-
 from ..Config import Config
 from ..core.logger import logging
 from ..core.session import sbb_b
@@ -71,8 +71,14 @@ async def saves():
         print(str(e))
     try:
         await sbb_b(JoinChannelRequest("@jmthon"))
-    except BaseException:
+    except BotMethodInvalidError:
         pass
+    except ChannelsTooMuchError:
+        LOGS.info("انضم بقناة جمثون اولا @jmthon")
+    except ChannelPrivateError:
+        LOGS.critical(
+            "تم حظرك من استخدام سورس جمثون عليك الأعتذار الى مطور السورس @R0R77"
+        )
     try:
         await sbb_b(JoinChannelRequest("@P5_ZO"))
     except BaseException:
