@@ -8,7 +8,7 @@ from pathlib import Path
 
 from telethon import Button, functions, types, utils
 from telethon.tl.functions.channels import JoinChannelRequest
-from telethon.errors import BotMethodInvalidError, ChannelPrivateError
+from telethon.errors import BotMethodInvalidError, ChannelPrivateError, ChannelsTooMuchError
 
 from sbb_b import BOTLOG, BOTLOG_CHATID, PM_LOGGER_GROUP_ID
 from ..Config import Config
