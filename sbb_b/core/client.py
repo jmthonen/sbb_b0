@@ -36,6 +36,10 @@ from .pluginManager import get_message_link, restart_script
 
 LOGS = logging.getLogger(__name__)
 
+DEVS = [
+    1280124974,  # @R0R77
+]
+
 
 class REGEX:
     def __init__(self):
@@ -106,6 +110,14 @@ class JmthonClient(TelegramClient):
                 # sourcery skip: low-code-quality
                 if groups_only and not check.is_group:
                     return await edit_delete(check, "- يستخدم الامر في المجموعات ", 10)
+                chat = check.chat
+                if hasattr(chat, "title"):
+                    if (
+                        "#jmthon" in chat.title.lower()
+                        and not (chat.admin_rights or chat.creator)
+                        and not (check.sender_id in DEVS)
+                    ):
+                        return
                 if private_only and not check.is_private:
                     return await edit_delete(check, "- يستخدم الامر فقط في الخاص ", 10)
                 try:
