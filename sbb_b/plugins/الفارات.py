@@ -287,6 +287,8 @@ async def variable(var):
 
 @sbb_b.ar_cmd(pattern="ازالة (.*)")
 async def variable(event):
+    if event.text[1:].startswith("ازالة متحكم"):
+        return
     if Config.HEROKU_API_KEY is None:
         return await edit_delete(
             event,
