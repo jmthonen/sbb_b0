@@ -1,22 +1,21 @@
 import random
-import re
 import time
 from datetime import datetime
 from platform import python_version
 
 import requests
-from telethon import version, Button, events
+from telethon import Button, events, version
 from telethon.errors.rpcerrorlist import (
     MediaEmptyError,
     WebpageCurlFailedError,
     WebpageMediaEmptyError,
 )
-from telethon.events import CallbackQuery
+
 from sbb_b import StartTime, jmthonversion, sbb_b
 
 from ..Config import Config
 from ..core.managers import edit_or_reply
-from ..helpers.functions import check_data_base_heal_th, get_readable_time, jmthonalive
+from ..helpers.functions import check_data_base_heal_th, get_readable_time
 from ..helpers.utils import reply_id
 from ..sql_helper.globals import gvarstatus
 from . import mention
@@ -90,7 +89,6 @@ def jmthonalive_text():
     return jmthon_caption
 
 
-
 @sbb_b.ar_cmd(pattern="السورس$")
 async def repo(event):
     RR7PP = Config.TG_BOT_USERNAME
@@ -100,7 +98,8 @@ async def repo(event):
     await response[0].click(event.chat_id)
     await event.delete()
 
-ROZ_PIC = "https://telegra.ph/file/5f6ef13851dcf0d6fc72b.jpg"
+
+ROZ_PIC = "https://graph.org/file/5f6ef13851dcf0d6fc72b.jpg"
 RAZAN = Config.TG_BOT_USERNAME
 ROZ_T = (
     f"**⌯︙بوت جمثـون يعمل بنجاح 🤍،**\n"
@@ -146,8 +145,6 @@ if Config.TG_BOT_USERNAME is not None and tgbot is not None:
                     link_preview=False,
                 )
             await event.answer([result] if result else None)
-
-
 
 
 # edit by ~ @RR77R

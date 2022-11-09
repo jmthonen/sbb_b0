@@ -1,3 +1,7 @@
+# creidts @R0r77
+# idea https://github.com/LaKsH-X/SatoruBot/blob/master/EmikoRobot/modules/tagall.py
+# t.me/jmthon
+
 import contextlib
 from asyncio import sleep
 
@@ -42,8 +46,12 @@ BANNED_RIGHTS = ChatBannedRights(
     embed_links=True,
 )
 
+import asyncio
+
 from telethon import events
+from telethon.errors import UserNotParticipantError
 from telethon.errors.rpcerrorlist import YouBlockedUserError
+from telethon.tl.functions.channels import GetParticipantRequest
 
 from sbb_b import sbb_b
 
@@ -52,6 +60,7 @@ from ..core.managers import edit_or_reply
 from ..helpers.utils import reply_id
 from . import sbb_b
 
+spam_chats = []
 chr = Config.COMMAND_HAND_LER
 
 
@@ -142,6 +151,8 @@ async def _(event):
     require_admin=True,
 )
 async def _(event):
+    if event.text[1:].startswith("تفليش بالبوت"):
+        return
     result = await event.client.get_permissions(event.chat_id, event.client.uid)
     if not result:
         return await edit_or_reply(
@@ -169,6 +180,45 @@ async def _(event):
     await jmthonevent.edit(
         f"**- تم بنجاح جظر {success} مستخدم من  {total} من العدد الكلي"
     )
+
+
+@sbb_b.ar_cmd(pattern="تفليش بالبوت$", groups_only=True)
+async def banavot(event):
+    chat_id = event.chat_id
+    # msg = await event.get_reply_message()  ما احتاجه لان الكتابة ثابتة
+    is_admin = False  # ما احتاج اشارف نحتاج اي رتبة بأي بوت
+    try:
+        await sbb_b(GetParticipantRequest(event.chat_id, event.sender_id))
+    except UserNotParticipantError:
+        pass
+    spam_chats.append(chat_id)
+    async for usr in sbb_b.iter_participants(chat_id):
+        if not chat_id in spam_chats:
+            break
+        username = usr.username
+        usrtxt = f"حظر @{username}"
+        if str(username) == "None":  # اذا كان المستخدم ما عنده يوزر يستخدم الايدي
+            idofuser = usr.id
+            usrtxt = f"حظر {idofuser}"
+        await sbb_b.send_message(chat_id, usrtxt)
+        await asyncio.sleep(0.5)
+        await event.delete()
+    try:
+        spam_chats.remove(chat_id)
+    except:
+        pass
+
+
+@sbb_b.ar_cmd(pattern="الغاء التفليش", groups_only=True)
+async def unbanbot(event):
+    if not event.chat_id in spam_chats:
+        return await event.edit("**لا توجد عملية هنا لأيقاها**")
+    else:
+        try:
+            spam_chats.remove(event.chat_id)
+        except:
+            pass
+        return await event.edit("**- تم بنجاح الغاء عملية التفليش**")
 
 
 @sbb_b.ar_cmd(
