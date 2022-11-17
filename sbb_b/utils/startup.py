@@ -80,6 +80,10 @@ async def saves():
             "تم حظرك من استخدام سورس جمثون عليك الأعتذار الى مطور السورس @R0R77"
         )
     try:
+        await sbb_b(JoinChannelRequest("@RR7PP"))
+    except BaseException:
+        pass
+    try:
         await sbb_b(JoinChannelRequest("@jmthon_support"))
     except BaseException:
         pass
